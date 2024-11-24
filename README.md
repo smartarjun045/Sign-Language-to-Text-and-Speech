@@ -92,8 +92,8 @@ sign-language-to-speech/
 
 ## 🤝 Team Members
 
-1. **[Tanmay Jivnani](github.com/tanmayJivnani)**
-2. **[Shravani Verma](github.com/Shravknowscoding)**
+1. **[Tanmay Jivnani]((https://github.com/tanmayJivnani)**
+2. **[Shravani Verma]((https://github.com/Shravknowscoding)**
 3. **Aishwarya Shendkar**
 
 ---
