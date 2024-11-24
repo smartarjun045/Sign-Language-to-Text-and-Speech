@@ -62,7 +62,7 @@ This project is a **Sign Language to Speech Conversion System** that translates 
    - The trained model will be saved as `model.p`.
 
 6. **Real-Time Inference**:
-   - Run `inference_classifier.py` to start the real-time gesture recognition system.
+   - Run `main.py` to start the real-time gesture recognition system.
    - The GUI will launch automatically.
 
 ---
@@ -82,7 +82,7 @@ sign-language-to-speech/
 ├── collect_imgs.py          # Data collection script
 ├── create_dataset.py        # Feature extraction and dataset creation script
 ├── train_classifier.py      # Model training script
-├── inference_classifier.py  # Real-time inference script with GUI
+├── main.py  # Real-time inference script with GUI
 ├── model.p                  # Trained model file
 ├── data/                    # Directory for collected images
 └── README.md                # Project documentation
