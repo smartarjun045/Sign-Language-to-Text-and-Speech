@@ -28,9 +28,9 @@ This project, *Sign Language to Speech Conversion using Machine Learning*, enabl
 
 ```
 sign-language-to-speech/
-├── collect_imgs.py          # Data collection script
-├── create_dataset.py        # Feature extraction and dataset creation script
-├── train_classifier.py      # Model training script
+├── collectImgs.py          # Data collection script
+├── createDataset.py        # Feature extraction and dataset creation script
+├── trainClassifier.py      # Model training script
 ├── main.py  # Real-time inference script with GUI
 ├── model.p                  # Trained model file
 ├── data/                    # Directory for collected images (not provided)
@@ -57,20 +57,20 @@ You can directly use the pre-trained model (`model.p`) provided in this reposito
 ### **Option 2: Train Your Own Model**  
 To create and train a custom model:  
 1. **Collect a Custom Dataset**:  
-   - Run `collect_imgs.py` to capture gesture images using your webcam.  
+   - Run `collectImgs.py` to capture gesture images using your webcam.  
    - Modify the `number_of_classes` and `dataset_size` variables in the script if needed.  
 
 2. **Process the Dataset**:  
-   - Use `create_dataset.py` to extract features from the collected images and save them in a `data.pickle` file.  
+   - Use `createDataset.py` to extract features from the collected images and save them in a `data.pickle` file.  
 
 3. **Train the Model**:  
-   - Train a new model using `train_classifier.py`. It will replace the old one.
+   - Train a new model using `trainClassifier.py`. It will replace the old one.
 
 ---
 
 ## **How the Project Was Built**  
 1. **Dataset Collection**  
-   - A custom dataset was created using the `collect_imgs.py` script.  
+   - A custom dataset was created using the `collectImgs.py` script.  
    - For each gesture, 100 images were captured, ensuring diverse angles and lighting conditions for robust training.  
    - The dataset includes **38 classes**, representing:  
      - 26 alphabets (A-Z)  
@@ -81,7 +81,7 @@ To create and train a custom model:
 2. **Feature Extraction and Preprocessing**  
    - The collected images were processed using **MediaPipe**, extracting 21 key landmarks for each hand.  
    - Each landmark was converted into a normalized 2D coordinate (x, y), resulting in **42 features per sample**.  
-   - The preprocessed data was saved as a `pickle` file using the `create_dataset.py` script.  
+   - The preprocessed data was saved as a `pickle` file using the `createDataset.py` script.  
 
 3. **Model Training**  
    - A **Random Forest Classifier** was used for training, offering high accuracy with fast training times.  
