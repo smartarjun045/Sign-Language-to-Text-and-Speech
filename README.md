@@ -1,30 +1,5 @@
-# Sign Language to Speech Conversion using Machine Learning
-
-This project is a **Sign Language to Speech Conversion System** that translates American Sign Language (ASL) gestures into text and spoken words. It leverages **MediaPipe**, **Machine Learning**, and a custom-built graphical user interface (GUI) for real-time recognition and speech synthesis.
-
----
-
-## 📝 Project Overview
-
-1. **Data Collection**: 
-   - Captures images of ASL gestures using a webcam.
-   - Supports 38 classes: A-Z, 0-9, space, and full stop.
-   - Stores images in organized class-wise directories.
-
-2. **Feature Extraction**: 
-   - Uses **MediaPipe Hands** to extract hand landmarks from images.
-   - Converts images into numerical feature vectors for model training.
-
-3. **Model Training**: 
-   - Trains a **Random Forest Classifier** to recognize ASL gestures.
-   - Achieves high accuracy with a robust feature set.
-
-4. **Real-Time Inference**: 
-   - Recognizes gestures in real time using a webcam.
-   - Forms words and sentences based on recognized gestures.
-   - Provides speech output for constructed sentences using `pyttsx3`.
-
----
+## **Overview**  
+This project, *Sign Language to Speech Conversion using Machine Learning*, enables the recognition of American Sign Language (ASL) gestures and converts them into spoken words or sentences. It is designed to bridge the communication gap for individuals who use sign language.  
 
 ## 🎯 Features
 
@@ -34,41 +9,15 @@ This project is a **Sign Language to Speech Conversion System** that translates 
 - **Text-to-Speech Conversion**: Speaks out the recognized text for better accessibility.
 - **User-Friendly GUI**: Displays the current alphabet, word, and sentence in real time.
 
----
-
-## 🛠️ How to Use
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-username/sign-language-to-speech.git
-   cd sign-language-to-speech
-   ```
-
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Data Collection**:
-   - Run `collect_imgs.py` to collect gesture images for each class.
-   - Use a webcam to capture images for training.
-
-4. **Feature Extraction**:
-   - Run `create_dataset.py` to preprocess the collected images.
-   - The dataset will be saved as `data.pickle`.
-
-5. **Model Training**:
-   - Run `train_classifier.py` to train the gesture recognition model.
-   - The trained model will be saved as `model.p`.
-
-6. **Real-Time Inference**:
-   - Run `main.py` to start the real-time gesture recognition system.
-   - The GUI will launch automatically.
-
----
+## **Project Highlights**  
+- **Custom Dataset Creation**:  
+  We built this project from the ground up by capturing and preparing our **custom dataset** of ASL gestures, covering A-Z alphabets, 0-9 digits, a gesture for **space**, and one for **full stop**.  
+- **Pre-Trained Model Included**:  
+  A **pre-trained model** is provided to allow users to immediately start using the system.  
+- **Flexibility**:  
+  Users can also train their own custom models using the provided scripts and instructions.
 
 ## 🔧 Tech Stack
-
 - **Languages**: Python
 - **Libraries**: MediaPipe, OpenCV, Tkinter, Pyttsx3, Scikit-learn
 - **Machine Learning Model**: Random Forest Classifier
@@ -84,16 +33,84 @@ sign-language-to-speech/
 ├── train_classifier.py      # Model training script
 ├── main.py  # Real-time inference script with GUI
 ├── model.p                  # Trained model file
-├── data/                    # Directory for collected images
+├── data/                    # Directory for collected images (not provided)
 └── README.md                # Project documentation
 ```
+---
+
+## **Usage**  
+### **Option 1: Use the Pre-Trained Model**  
+You can directly use the pre-trained model (`model.p`) provided in this repository:  
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/sign-language-to-speech.git
+   cd sign-language-to-speech
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the `main.py` script.  
+4. Ensure your webcam is functional, and the `model.p` file is in the same directory.  
+
+### **Option 2: Train Your Own Model**  
+To create and train a custom model:  
+1. **Collect a Custom Dataset**:  
+   - Run `collect_imgs.py` to capture gesture images using your webcam.  
+   - Modify the `number_of_classes` and `dataset_size` variables in the script if needed.  
+
+2. **Process the Dataset**:  
+   - Use `create_dataset.py` to extract features from the collected images and save them in a `data.pickle` file.  
+
+3. **Train the Model**:  
+   - Train a new model using `train_classifier.py`. It will replace the old one.
 
 ---
 
-## 🤝 Team Members
+## **How the Project Was Built**  
+1. **Dataset Collection**  
+   - A custom dataset was created using the `collect_imgs.py` script.  
+   - For each gesture, 100 images were captured, ensuring diverse angles and lighting conditions for robust training.  
+   - The dataset includes **38 classes**, representing:  
+     - 26 alphabets (A-Z)  
+     - 10 digits (0-9)  
+     - A gesture for **space**  
+     - A gesture for **full stop**  
 
-1. **[Tanmay Jivnani]((https://github.com/tanmayJivnani)**
-2. **[Shravani Verma]((https://github.com/Shravknowscoding)**
+2. **Feature Extraction and Preprocessing**  
+   - The collected images were processed using **MediaPipe**, extracting 21 key landmarks for each hand.  
+   - Each landmark was converted into a normalized 2D coordinate (x, y), resulting in **42 features per sample**.  
+   - The preprocessed data was saved as a `pickle` file using the `create_dataset.py` script.  
+
+3. **Model Training**  
+   - A **Random Forest Classifier** was used for training, offering high accuracy with fast training times.  
+   - The dataset was split into training and testing sets (80-20 ratio).  
+   - Training results showed high accuracy, ensuring reliable gesture recognition.  
+
+4. **Inference and Real-Time Conversion**  
+   - The trained model was integrated into a real-time system using `main.py`.  
+   - The system uses a **stabilization buffer** to improve gesture detection and avoids misclassifications.  
+   - A **Text-to-Speech (TTS)** engine was used to convert recognized gestures into audible speech.  
+   - A user-friendly **GUI** was built with **Tkinter** for better interaction.
+
+---
+
+## **Future Enhancements**  
+- Expand recognition to include **dynamic gestures**.  
+- Support for additional sign languages.  
+- Deploy the system as a mobile or web application for greater accessibility.
+
+---
+
+## **Suggestions and Collaborations**  
+We believe that collaboration is key to innovation. If you have suggestions for improving this project, new ideas, or wish to collaborate on expanding its capabilities, we’d love to hear from you! Feel free to reach out via issues or pull requests on GitHub.
+
+---
+
+## **Contributors**  
+1. **[Tanmay Jivnani](https://github.com/tanmayJivnani)**
+2. **[Shravani Verma](https://github.com/Shravknowscoding)**
 3. **Aishwarya Shendkar**
 
 ---
