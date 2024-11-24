@@ -92,8 +92,8 @@ sign-language-to-speech/
 
 ## 🤝 Team Members
 
-1. **Tanmay Jivnani**
-2. **Shravani Verma**
+1. **[Tanmay Jivnani](github.com/tanmayJivnani)**
+2. **[Shravani Verma](github.com/Shravknowscoding)**
 3. **Aishwarya Shendkar**
 
 ---
@@ -109,4 +109,3 @@ sign-language-to-speech/
 ## 📝 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-```
