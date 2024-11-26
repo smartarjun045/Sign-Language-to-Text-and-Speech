@@ -86,6 +86,7 @@ To create and train a custom model:
 - Expand recognition to include **dynamic gestures**.  
 - Support for additional sign languages.  
 - Deploy the system as a mobile or web application for greater accessibility.
+- Improve model accuracy with advanced deep learning techniques.
 
 ---
 
@@ -98,14 +99,6 @@ We believe that collaboration is key to innovation. If you have suggestions for 
 1. **[Tanmay Jivnani](https://github.com/tanmayJivnani)**
 2. **[Shravani Verma](https://github.com/Shravknowscoding)**
 3. **[Aishwarya Shendkar](https://github.com/aishywaryaa2603)**
-
----
-
-## 📋 Future Enhancements
-
-- Expand the system to support additional gestures or full words.
-- Improve model accuracy with advanced deep learning techniques.
-- Add multi-language support for text-to-speech conversion.
 
 ---
 
