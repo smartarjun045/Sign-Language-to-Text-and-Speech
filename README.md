@@ -24,20 +24,6 @@ This project, *Sign Language to Speech Conversion using Machine Learning*, enabl
 
 ---
 
-## 📂 Project Structure
-
-```
-sign-language-to-speech/
-├── collectImgs.py          # Data collection script
-├── createDataset.py        # Feature extraction and dataset creation script
-├── trainClassifier.py      # Model training script
-├── main.py  # Real-time inference script with GUI
-├── model.p                  # Trained model file
-├── data/                    # Directory for collected images (not provided)
-└── README.md                # Project documentation
-```
----
-
 ## **Usage**  
 ### **Option 1: Use the Pre-Trained Model**  
 You can directly use the pre-trained model (`model.p`) provided in this repository:  
@@ -111,7 +97,7 @@ We believe that collaboration is key to innovation. If you have suggestions for 
 ## **Contributors**  
 1. **[Tanmay Jivnani](https://github.com/tanmayJivnani)**
 2. **[Shravani Verma](https://github.com/Shravknowscoding)**
-3. **Aishwarya Shendkar**
+3. **[Aishwarya Shendkar](https://github.com/aishywaryaa2603)**
 
 ---
 
