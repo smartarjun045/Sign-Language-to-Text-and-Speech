@@ -102,7 +102,7 @@ We believe that collaboration is key to innovation. If you have suggestions for 
 ## **Contributors**  
 1. **[Tanmay Jivnani](https://github.com/tanmayJivnani)**
 2. **[Shravani Verma](https://github.com/Shravknowscoding)**
-3. **[Aishwarya Shendkar](https://github.com/aishywaryaa2603)**
+3. **[Aishwarya Shendkar](https://github.com/aishwaryaa2603)**
 
 ---
 
