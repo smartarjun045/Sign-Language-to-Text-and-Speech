@@ -1,5 +1,6 @@
 ## **Overview**  
 This project, *Sign Language to Speech Conversion using Machine Learning*, enables the recognition of American Sign Language (ASL) gestures and converts them into spoken words or sentences. It is designed to bridge the communication gap for individuals who use sign language. 
+
 🔗[Video Demonstration on LinkedIn](https://www.linkedin.com/posts/tanmay-jivnani_capstoneproject-machinelearning-signlanguagerecognition-activity-7267174165739184128-VdZB?utm_source=share&utm_medium=member_desktop)
 
 
