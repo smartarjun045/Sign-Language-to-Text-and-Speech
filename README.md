@@ -13,9 +13,21 @@ This project, *Sign Language to Speech Conversion using Machine Learning*, enabl
 - **Custom Dataset Creation**:  
   We built this project from the ground up by capturing and preparing our **custom dataset** of ASL gestures, covering A-Z alphabets, 0-9 digits, a gesture for **space**, and one for **full stop**.
   
-  ![ASL Characters](The-26-letters-and-10-digits-of-American-Sign-Language-ASL.png)
-  
+  ![ASL Characters](/ReadmeAssets/The-26-letters-and-10-digits-of-American-Sign-Language-ASL.png)
   The 26 letters and 10 digits of American Sign Language (ASL)
+  
+  ![J](/ReadmeAssets/J.jpg)
+  Sign for J
+
+  ![Z](/ReadmeAssets/Z.jpg)
+  Sign for Z
+
+  ![SPACE](/ReadmeAssets/Space.jpg)
+  Sign for SPACE.
+  
+  ![Fullstop](/ReadmeAssets/Fullstop.jpg)
+  Sign for FULLSTOP.
+
 - **Pre-Trained Model Included**:  
   A **pre-trained model** is provided to allow users to immediately start using the system.  
 - **Flexibility**:  
