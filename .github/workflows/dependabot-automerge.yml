@@ -1,0 +1,106 @@
+name: Dependabot Auto-merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Wait for tests to complete
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          check-name: 'test'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          allowed-conclusions: success
+
+      - name: Determine auto-merge eligibility
+        id: auto-merge-check
+        run: |
+          # Auto-merge patch and minor updates for all dependencies
+          # Only skip major updates to avoid breaking changes
+          if [[ "${{ steps.metadata.outputs.update-type }}" == "version-update:semver-patch" ]] || [[ "${{ steps.metadata.outputs.update-type }}" == "version-update:semver-minor" ]]; then
+            echo "eligible=true" >> $GITHUB_OUTPUT
+            echo "reason=patch-or-minor-update" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.metadata.outputs.update-type }}" == "version-update:semver-major" ]]; then
+            # For major updates, only auto-merge if it's a known safe dependency
+            if [[ "${{ steps.metadata.outputs.dependency-names }}" =~ (numpy|pillow) ]]; then
+              echo "eligible=true" >> $GITHUB_OUTPUT
+              echo "reason=safe-major-update" >> $GITHUB_OUTPUT
+            else
+              echo "eligible=false" >> $GITHUB_OUTPUT
+              echo "reason=major-update-requires-review" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "eligible=true" >> $GITHUB_OUTPUT
+            echo "reason=dependency-update" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Approve Dependabot PR
+        if: steps.auto-merge-check.outputs.eligible == 'true'
+        run: |
+          gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Enable auto-merge for Dependabot PRs
+        if: steps.auto-merge-check.outputs.eligible == 'true'
+        run: |
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Comment on auto-merged PR
+        if: steps.auto-merge-check.outputs.eligible == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🤖 **Dependabot Auto-merge**: This PR has been automatically approved and will be merged once all tests pass.
+              
+              **Details:**
+              - Update type: \`${{ steps.metadata.outputs.update-type }}\`
+              - Dependencies: \`${{ steps.metadata.outputs.dependency-names }}\`
+              - Reason: ${{ steps.auto-merge-check.outputs.reason }}
+              
+              Tests must pass before the merge will complete.`
+            })
+
+      - name: Comment on skipped PR
+        if: steps.auto-merge-check.outputs.eligible == 'false'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `⚠️ **Dependabot Auto-merge Skipped**: This PR requires manual review.
+              
+              **Details:**
+              - Update type: \`${{ steps.metadata.outputs.update-type }}\`
+              - Dependencies: \`${{ steps.metadata.outputs.dependency-names }}\`
+              - Reason: ${{ steps.auto-merge-check.outputs.reason }}
+              
+              Please review the changes manually before merging.`
+            })

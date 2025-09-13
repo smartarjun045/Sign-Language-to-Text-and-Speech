@@ -1,0 +1,35 @@
+version: 2
+updates:
+  # Enable version updates for Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "smartarjun045"
+    assignees:
+      - "smartarjun045"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    # Group related updates together
+    groups:
+      opencv-group:
+        patterns:
+          - "opencv-*"
+      ml-group:
+        patterns:
+          - "mediapipe"
+          - "scikit-learn"
+          - "numpy"
+      ui-group:
+        patterns:
+          - "pillow"
+          - "pyttsx3"
