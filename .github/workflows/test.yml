@@ -1,0 +1,79 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, '3.10', '3.11']
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev libgomp1 libgtk-3-0 libavcodec-dev libavformat-dev libswscale-dev
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install flake8 pytest
+    
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Test import and basic functionality
+      run: |
+        python -c "
+        import sys
+        sys.path.append('.')
+        
+        # Test basic imports
+        try:
+            import cv2
+            import mediapipe as mp
+            import numpy as np
+            import pyttsx3
+            import pickle
+            from PIL import Image
+            print('✓ All required packages imported successfully')
+        except ImportError as e:
+            print(f'✗ Import error: {e}')
+            sys.exit(1)
+        
+        # Test model file exists
+        import os
+        if os.path.exists('model.p'):
+            print('✓ Model file exists')
+        else:
+            print('✗ Model file not found')
+            sys.exit(1)
+        
+        # Test mediapipe hands initialization
+        try:
+            mp_hands = mp.solutions.hands
+            hands = mp_hands.Hands(static_image_mode=False, min_detection_confidence=0.5, max_num_hands=1)
+            print('✓ MediaPipe hands initialized successfully')
+        except Exception as e:
+            print(f'✗ MediaPipe initialization error: {e}')
+            sys.exit(1)
+        
+        print('All tests passed!')
+        "
